@@ -1,5 +1,5 @@
-def reynolds_caclulator(densidad, velocidad, longitud, dyn_visc):
-    
+def reynolds_calculator(densidad, velocidad, longitud, dyn_visc):
+    #Esta función hace el cálculo del número de Reynolds para saber si el flujo es laminar o turbulento
     resultado = None
 
     try:

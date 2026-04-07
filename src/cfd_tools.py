@@ -59,3 +59,22 @@ def froude_calculator(velocidad, longitud, gravedad=9.81):
 
     if not resultado is None:
         return resultado
+
+def froude_validation(Fr):
+
+    validation = True
+
+    if Fr is None:
+        print("Fr no es válido")
+        validation = False
+
+    elif Fr < 1:
+        print(f"Fr = {Fr:.02f}. El régimen es subcrítico (flujo lento).")
+    
+    elif Fr == 1:
+        print(f"AVISO TÉCNICO: Fr = {Fr:.02f}. El régimen es crítico - El solver puede ser inestable.")
+    
+    else:
+        print(f"Fr = {Fr:.02f}. El régimen es supercrítico (flujo rápido/torrencial).")
+    
+    return validation

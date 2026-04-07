@@ -1,0 +1,24 @@
+{
+    "summary": {
+        "rows_read": 4,
+        "rows_valid": 2,
+        "rows_discarded": 2,
+        "status": "success"
+    },
+    "data": [
+        {
+            "id_particle": "P01",
+            "pos_x": 0.5,
+            "pos_y": 1.2,
+            "velocity": 120.5,
+            "timestamp": "2023-10-27 10:00"
+        },
+        {
+            "id_particle": "P04",
+            "pos_x": 2.1,
+            "pos_y": 3.3,
+            "velocity": 150.0,
+            "timestamp": "2023-10-27 10:03"
+        }
+    ]
+}

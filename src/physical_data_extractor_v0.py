@@ -173,11 +173,14 @@ CONFIG = {
 
 # [BLOQUE DE ORQUESTACIÓN]
 if __name__ == "__main__":
-    base_dir = Path(__file__).resolve().parent
+    base_dir = Path(__file__).resolve().parent.parent
 
     # 1. Definimos las rutas
-    entrada = base_dir / "simulacion_particulas.csv"
-    salida = base_dir / "datos_limpios.json"
+    entrada = base_dir / "data" / "simulacion_particulas.csv"
+    salida = base_dir / "data" / "datos_limpios.json"
+
+    print(f"Buscando entrada en: {entrada}")
+    print(f"Guardando salida en: {salida}")
 
     print("--- Iniciando Physical Data Extractor v0 ---")
 

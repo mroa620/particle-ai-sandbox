@@ -1,1 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Entornos
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+
+# Outputs y logs
 outputs/
+*.log
+
+# Datos pesados o privados
+data/raw/
+data/private/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db

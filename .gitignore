@@ -19,5 +19,7 @@ data/raw/
 data/private/
 
 # Archivos de sistema
-.DS_Store
 Thumbs.db
+
+#Carpeta privada con archivos de estudio
+private_study/

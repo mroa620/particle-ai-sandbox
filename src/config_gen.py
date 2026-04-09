@@ -64,7 +64,22 @@ def create_vars():
             print("El valor de la viscosidad ha der ser un número positivo")
     fluid_properties["viscosity"] = viscosity
 
-    density = input("Introduce el valor de la densidad (kg/m^3): ")
+    while True:
+        try:
+            density = input("Introduce el valor de la densidad (kg/m^3): ")
+            density = float(density)
+
+            if density > 0:
+                break
+            else:
+                raise ValueError
+        
+        except TypeError:
+            print("El valor de la densidad ha der ser un número positivo")
+        except ValueError:
+            print("El valor de la densidad ha der ser un número positivo")
+    fluid_properties["density"] = density
+
            
 
     #id_particula

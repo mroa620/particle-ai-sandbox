@@ -1,6 +1,7 @@
 import json
 import pathlib
 import datetime
+import ast
 
 def create_vars():
 
@@ -42,7 +43,7 @@ def create_vars():
             version = float(version)
             break
 
-        except TypeError:
+        except ValueError:
             print("La versión del proyecto ha der ser un número")
     metadata["version"] = version
 
@@ -61,9 +62,9 @@ def create_vars():
                 raise ValueError
         
         except TypeError:
-            print("El valor de la viscosidad ha der ser un número positivo")
+            print("El valor de la viscosidad ha der ser un número positivo (Pa*s)")
         except ValueError:
-            print("El valor de la viscosidad ha der ser un número positivo")
+            print("El valor de la viscosidad ha der ser un número positivo (Pa*s)")
     fluid_properties["viscosity"] = viscosity
 
     while True:
@@ -77,11 +78,11 @@ def create_vars():
                 raise ValueError
         
         except TypeError:
-            print("El valor de la densidad ha der ser un número positivo")
+            print("El valor de la densidad ha der ser un número positivo (kg/m^3)")
         except ValueError:
-            print("El valor de la densidad ha der ser un número positivo")
+            print("El valor de la densidad ha der ser un número positivo (kg/m^3)")
     fluid_properties["density"] = density
-    physics["fluid properties"] = fluid_properties
+    physics["fluid_properties"] = fluid_properties
 
     while True:
         try:
@@ -94,9 +95,9 @@ def create_vars():
                 raise ValueError
         
         except TypeError:
-            print("El valor de la longitud característica ha der ser un número positivo")
+            print("El valor de la longitud característica ha der ser un número positivo (m)")
         except ValueError:
-            print("El valor de la longitud característica ha der ser un número positivo")
+            print("El valor de la longitud característica ha der ser un número positivo (m)")
     dimensionless_params["char_length"] = char_length
 
     while True:
@@ -110,16 +111,16 @@ def create_vars():
                 raise ValueError
         
         except TypeError:
-            print("El valor de la velocidad de referencia ha der ser un número positivo")
+            print("El valor de la velocidad de referencia ha der ser un número positivo (m/s)")
         except ValueError:
-            print("El valor de la velocidad de referencia ha der ser un número positivo")
+            print("El valor de la velocidad de referencia ha der ser un número positivo (m/s)")
     dimensionless_params["reference_velocity"] = ref_velocity
     physics["dimensionless_params"] = dimensionless_params
 
 
     while True:
         try:
-            time_step = input("Introduce el time-step de la simulación: ")
+            time_step = input("Introduce el time-step de la simulación (s): ")
             time_step = float(time_step)
 
             if time_step > 0:
@@ -127,14 +128,14 @@ def create_vars():
             else:
                 raise ValueError
         except TypeError:
-            print("El valor del time step ha der ser un número positivo")
+            print("El time step ha der ser un número positivo (s)")
         except ValueError:
-            print("El valor del time step ha der ser un número positivo")
+            print("El time step ha der ser un número positivo (s)")
     solver_settings["time_step"] = time_step
 
     while True:
         try:
-            t_total = input("Introduce el tiempo total de simulación: ")
+            t_total = input("Introduce el tiempo total de simulación (s): ")
             t_total = float(t_total)
 
             if t_total > 0:
@@ -142,9 +143,9 @@ def create_vars():
             else:
                 raise ValueError
         except TypeError:
-            print("El valor total de la simulación ha der ser un número positivo")
+            print("El tiempo total de la simulación ha der ser un número positivo (s)")
         except ValueError:
-            print("El valor total de la simulación ha der ser un número positivo")
+            print("El tiempo total de la simulación ha der ser un número positivo (s)")
     solver_settings["total_time"] = t_total
 
     while True:
@@ -159,26 +160,41 @@ def create_vars():
 
     while True:
         try:
+            pos_initial = []
             pos_initial = input("Introduce la posición inicial de la partícula [ (m), (m)]: ")
-            pos_initial = all(isinstance(x, float) for x in pos_initial)
+            pos_initial = ast.literal_eval(pos_initial)
+
+            if not isinstance(pos_initial, list):
+                raise TypeError
+            elif len(pos_initial) != 2:
+                raise ValueError
+            elif not all(isinstance(x, (int, float)) for x in pos_initial):
+                raise TypeError
             break
 
-        except ValueError:
+        except (ValueError, TypeError, SyntaxError):
             print("La posición ha de indicarse en una lista de coordenadas [x, y] en (m)")
-        except TypeError:
-            print("La posición ha de indicarse en una lista de coordenadas [x, y] en (m)")
+    
     initial_conditions["pos_initial"] = pos_initial
 
     while True:
         try:
-            vel_initial = input("Introduce la posición inicial de la partícula [ (m), (m)]: ")
-            vel_initial = all(isinstance(x, float) for x in vel_initial)
+            vel_initial = []
+            vel_initial = input("Introduce la velocidad inicial de la partícula [ (m), (m)]: ")
+            vel_initial = ast.literal_eval(vel_initial)
+            
+            if not isinstance(vel_initial, list):
+                raise TypeError
+            elif len(vel_initial) != 2:
+                raise ValueError
+            elif not all(isinstance(x, (int, float)) for x in vel_initial):
+                raise TypeError
+            
             break
 
-        except ValueError:
-            print("La posición ha de indicarse en una lista de coordenadas [x, y] en (m)")
-        except TypeError:
-            print("La posición ha de indicarse en una lista de coordenadas [x, y] en (m)")
+        except (ValueError, TypeError, SyntaxError):
+            print("La velocidad ha de indicarse en una lista de coordenadas [x, y] en (m)")
+
     initial_conditions["vel_initial"] = vel_initial
 
     config_final["metadata"] = metadata
@@ -187,3 +203,6 @@ def create_vars():
     config_final["initial_conditions"] = initial_conditions
 
     return config_final
+
+
+print(create_vars())

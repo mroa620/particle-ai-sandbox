@@ -1,24 +1,74 @@
 import json
 import pathlib
+import datetime
 
 def create_vars():
-    case_name = input("Introduce el nombre del caso: ")
-    while True:
-        viscosity = input("Introduce el valor de la viscosidad: ")
-    density = input("Introduce el valor de la densidad (kg/m^3): ")
-    simulation_type = input("Es una simulación 2D o 3D?: ")
 
-    if simulation_type in ["2D","2d"]:
-        position = (""
-        "x", "y")
-        velocity = ("v_x", "v_y")
-    elif simulation_type in ["3D","3d"]:
-        position = ("x", "y", "z")
-        velocity = ("v_x", "v_y", "v_z")
-    else:
-        print("No has indicado el tipo de simulación.")
-        raise ValueError
+    config_final = dict()
+    metadata = dict()
+    physics = dict()
+    settings = dict()
+    fluid_properties = dict()
+    dimensionless_params = dict()
+
+    while True:
+        try:
+            case_name = input("Introduce el nombre del caso: ")
+            if case_name == "":
+                raise ValueError
+            else:
+                break
+        
+        except ValueError:
+            print("Es obligatorio escribir un nombre para el caso.")
+    metadata["project_name"] = case_name    
+    
+    while True:
+        try:
+            user_name = input("Nombre de quién registra la simulación: ")
+            if user_name == "":
+                raise ValueError
+            else:
+                break
+        except ValueError:
+            print("Es obligatorio escribir un nombre de autor del proyecto.")
+    metadata["author"] = user_name    
+    
+    while True:
+        try:
+            version = input("Introduce el número de versión del proyecto: ")
+            version = float(version)
+            break
+
+        except TypeError:
+            print("La versión del proyecto ha der ser un número")
+    metadata["version"] = version
+
+    date = datetime.date.today()
+    date = str(date)
+    metadata["date"] = date
+
+    while True:
+        try:
+            viscosity = input("Introduce el valor de la viscosidad dinámica (Pa*s): ")
+            viscosity = float(viscosity)
+
+            if viscosity > 0:
+                break
+            else:
+                raise ValueError
+        
+        except TypeError:
+            print("El valor de la viscosidad ha der ser un número positivo")
+        except ValueError:
+            print("El valor de la viscosidad ha der ser un número positivo")
+    fluid_properties["viscosity"] = viscosity
+
+    density = input("Introduce el valor de la densidad (kg/m^3): ")
            
+
     #id_particula
     t_total = input("Introduce el tiempo total de simulación: ")
     time_step = input("Introduce el time-step de la simulación: ")
+
+    return

@@ -181,10 +181,9 @@ def create_vars():
             print("La posición ha de indicarse en una lista de coordenadas [x, y] en (m)")
     initial_conditions["vel_initial"] = vel_initial
 
+    config_final["metadata"] = metadata
+    config_final["physics"] = physics
+    config_final["solver_settings"] = solver_settings
+    config_final["initial_conditions"] = initial_conditions
 
-
-
-
-
-
-    return
+    return config_final

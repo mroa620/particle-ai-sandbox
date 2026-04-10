@@ -209,3 +209,24 @@ def save_data(ruta, diccionario_datos):
     with open(ruta, 'w', encoding='utf-8') as archivo:
         json.dump(diccionario_datos, archivo, indent=4)
 
+
+
+# [BLOQUE DE ORQUESTACIÓN]
+if __name__ == "__main__":
+    base_dir = Path(__file__).resolve().parent.parent
+
+    # 1. Definimos la ruta
+    salida = base_dir / "data" / "sample" / "config.json"
+
+    print(f"Guardando salida en: {salida}")
+
+    print("--- Iniciando Config Genetator ---")
+
+
+
+    # 2. Se crea el diccionario a partir de llamar a la función create_vars()
+    diccionario_datos = create_vars()
+
+    # 3. Salida: Guardamos el resultado final
+    save_data(salida, diccionario_datos)
+

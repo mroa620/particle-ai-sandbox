@@ -33,6 +33,7 @@ Seguirá evolucionando con mejoras de estructura, documentación y calidad de c�
 │   └── sample/
 ├── docs/
 ├── outputs/
+├── private_study/
 └── src/
 ```
 

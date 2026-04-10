@@ -23,3 +23,6 @@ Thumbs.db
 
 #Carpeta privada con archivos de estudio
 private_study/
+
+#Archivo de ejercicios previos al extractor
+src/pre_data_extractor_exercises.py

@@ -1,5 +1,5 @@
 import json
-import pathlib
+from pathlib import Path
 import datetime
 import ast
 
@@ -204,4 +204,8 @@ def create_vars():
     return config_final
 
 
-print(create_vars())
+def save_data(ruta, diccionario_datos):
+    
+    with open(ruta, 'w', encoding='utf-8') as archivo:
+        json.dump(diccionario_datos, archivo, indent=4)
+

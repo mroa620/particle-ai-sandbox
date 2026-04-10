@@ -17,25 +17,25 @@ def create_vars():
     while True:
         try:
             case_name = input("Introduce el nombre del caso: ")
-            if case_name == "":
+            if case_name.strip() == "":
                 raise ValueError
             else:
                 break
         
         except ValueError:
             print("Es obligatorio escribir un nombre para el caso.")
-    metadata["project_name"] = case_name    
+    metadata["project_name"] = case_name.strip()  
     
     while True:
         try:
             user_name = input("Nombre de quién registra la simulación: ")
-            if user_name == "":
+            if user_name.strip() == "":
                 raise ValueError
             else:
                 break
         except ValueError:
             print("Es obligatorio escribir un nombre de autor del proyecto.")
-    metadata["author"] = user_name    
+    metadata["author"] = user_name.strip()   
     
     while True:
         try:
@@ -61,8 +61,6 @@ def create_vars():
             else:
                 raise ValueError
         
-        except TypeError:
-            print("El valor de la viscosidad ha der ser un número positivo (Pa*s)")
         except ValueError:
             print("El valor de la viscosidad ha der ser un número positivo (Pa*s)")
     fluid_properties["viscosity"] = viscosity
@@ -77,8 +75,6 @@ def create_vars():
             else:
                 raise ValueError
         
-        except TypeError:
-            print("El valor de la densidad ha der ser un número positivo (kg/m^3)")
         except ValueError:
             print("El valor de la densidad ha der ser un número positivo (kg/m^3)")
     fluid_properties["density"] = density
@@ -94,8 +90,6 @@ def create_vars():
             else:
                 raise ValueError
         
-        except TypeError:
-            print("El valor de la longitud característica ha der ser un número positivo (m)")
         except ValueError:
             print("El valor de la longitud característica ha der ser un número positivo (m)")
     dimensionless_params["char_length"] = char_length
@@ -110,8 +104,6 @@ def create_vars():
             else:
                 raise ValueError
         
-        except TypeError:
-            print("El valor de la velocidad de referencia ha der ser un número positivo (m/s)")
         except ValueError:
             print("El valor de la velocidad de referencia ha der ser un número positivo (m/s)")
     dimensionless_params["reference_velocity"] = ref_velocity
@@ -127,8 +119,6 @@ def create_vars():
                 break
             else:
                 raise ValueError
-        except TypeError:
-            print("El time step ha der ser un número positivo (s)")
         except ValueError:
             print("El time step ha der ser un número positivo (s)")
     solver_settings["time_step"] = time_step
@@ -138,62 +128,71 @@ def create_vars():
             t_total = input("Introduce el tiempo total de simulación (s): ")
             t_total = float(t_total)
 
-            if t_total > 0:
-                break
-            else:
+            if t_total <= 0:
                 raise ValueError
-        except TypeError:
-            print("El tiempo total de la simulación ha der ser un número positivo (s)")
+            elif time_step >= t_total:
+                raise ValueError
+            elif time_step > t_total / 50:
+                print("AVISO TÉCNICO: El time-step parece demasiado grande respecto a t_total, la resolución temporal puede ser pobre.")
+            break
+
         except ValueError:
-            print("El tiempo total de la simulación ha der ser un número positivo (s)")
+            print("El tiempo total de la simulación ha der ser un número positivo (s) y mayor que time_step")
     solver_settings["total_time"] = t_total
 
     while True:
         try:
             particle_id = input("Introduce el número de id de la partícula inicial: ")
-            particle_id = float(particle_id)
+            particle_id = int(particle_id)
+
+            if particle_id < 0:
+                raise ValueError
+
             break
 
-        except TypeError:
-            print("El número de id de la partícula ha der ser un número")
+        except ValueError:
+            print("El número de id de la partícula ha der ser un número entero no negativo")
     initial_conditions["particle_id"] = particle_id
 
     while True:
         try:
-            pos_initial = []
             pos_initial = input("Introduce la posición inicial de la partícula [ (m), (m)]: ")
             pos_initial = ast.literal_eval(pos_initial)
 
-            if not isinstance(pos_initial, list):
+            if not isinstance(pos_initial, (list, tuple)):
                 raise TypeError
             elif len(pos_initial) != 2:
                 raise ValueError
             elif not all(isinstance(x, (int, float)) for x in pos_initial):
                 raise TypeError
+            
+            pos_initial = list(pos_initial)
+
             break
 
         except (ValueError, TypeError, SyntaxError):
-            print("La posición ha de indicarse en una lista de coordenadas [x, y] en (m)")
+            print("La posición ha de indicarse como [x, y] o (x, y) en m")
     
     initial_conditions["pos_initial"] = pos_initial
 
     while True:
         try:
-            vel_initial = []
             vel_initial = input("Introduce la velocidad inicial de la partícula [ (m), (m)]: ")
             vel_initial = ast.literal_eval(vel_initial)
             
-            if not isinstance(vel_initial, list):
+            if not isinstance(vel_initial, (list, tuple)):
                 raise TypeError
             elif len(vel_initial) != 2:
                 raise ValueError
             elif not all(isinstance(x, (int, float)) for x in vel_initial):
                 raise TypeError
             
+            vel_initial = list(vel_initial)
+            
             break
 
         except (ValueError, TypeError, SyntaxError):
-            print("La velocidad ha de indicarse en una lista de coordenadas [x, y] en (m)")
+            print("La velocidad ha de indicarse como [vx, vy] o (vx, vy) en m/s")
 
     initial_conditions["vel_initial"] = vel_initial
 

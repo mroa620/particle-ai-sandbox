@@ -1,0 +1,33 @@
+{
+    "metadata": {
+        "project_name": "prueba",
+        "author": "markel",
+        "version": 0.0,
+        "date": "2026-04-10"
+    },
+    "physics": {
+        "fluid_properties": {
+            "viscosity": 0.001,
+            "density": 1.5
+        },
+        "dimensionless_params": {
+            "char_length": 2.5,
+            "reference_velocity": 3.0
+        }
+    },
+    "solver_settings": {
+        "time_step": 0.1,
+        "total_time": 18.0
+    },
+    "initial_conditions": {
+        "particle_id": 0,
+        "pos_initial": [
+            -1,
+            4
+        ],
+        "vel_initial": [
+            2.4,
+            4.1
+        ]
+    }
+}

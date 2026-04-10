@@ -1,0 +1,31 @@
+Listado de rutas de carpetas
+El número de serie del volumen es AA14-EFBF
+C:.
+|   .gitignore
+|   lista_archivos.txt
+|   lista_completa.txt
+|   
++---data
+|   +---private
+|   +---raw
+|   \---sample
+|           config.json
+|           datos_limpios.json
+|           simulacion_particulas.csv
+|           
++---docs
+|       decisiones_tecnicas_v0.md
+|       objetivo_del_extractor_v0.md
+|       
++---outputs
++---private_study
+|       instrucciones_notebooklm.md
+|       instrucciones_notebooklm_2.md
+|       prueba.md
+|       
+\---src
+        cfd_tools.py
+        config_gen.py
+        physical_data_extractor_v0.py
+        pre_data_extractor_exercises.py
+        

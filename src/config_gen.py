@@ -217,10 +217,11 @@ if __name__ == "__main__":
 
     # 1. Definimos la ruta
     salida = base_dir / "data" / "sample" / "config.json"
+    salida.parent.mkdir(parents=True, exist_ok=True)
 
     print(f"Guardando salida en: {salida}")
 
-    print("--- Iniciando Config Genetator ---")
+    print("--- Iniciando Config Generator ---")
 
 
 

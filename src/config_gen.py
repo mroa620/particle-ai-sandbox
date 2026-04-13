@@ -54,7 +54,7 @@ def create_vars():
     while True:
         try:
             viscosity = input("Introduce el valor de la viscosidad dinámica (Pa*s): ")
-            viscosity = float(viscosity)
+            viscosity = float(viscosity)    #Convertimos el valor de viscosity a float
 
             if viscosity > 0:
                 break
